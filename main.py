@@ -1,5 +1,12 @@
-from imports import*
-import game_handler
+import asyncio
+import logging
+
+
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.filters.command import Command
+from questions_handler import game_handler
+import config
+
 bot = Bot(token=config.BOT_TOKEN)
 dp = Dispatcher()
 
