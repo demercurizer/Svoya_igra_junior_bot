@@ -42,8 +42,6 @@ async def start_game(message: types.Message, state: FSMContext):
         await message.answer("Выберите режим", reply_markup=keyboard)
 
 
-# Начало игры
-
 @router.message(F.text.lower() == "все по 10")
 async def start_game(message: types.Message, state: FSMContext):
     user_status = await user_db_connect(message.chat.id, message.from_user.full_name)
@@ -52,7 +50,7 @@ async def start_game(message: types.Message, state: FSMContext):
     elif user_status == 'banned':
         return await message.answer("Вы заблокированы и не можете использовать этого бота.")
     else:
-        await message.reply("Сейчас будет выбрано 50 вопросов номиналом 10 каждый, тебе предстоит на них ответить")
+        await message.reply("Сейчас будет выбрано 50 вопросов номиналом 10 каждый, тебе предстоит на них ответить",reply_markup=types.ReplyKeyboardRemove())
         questions = await db_connect(1)
         await state.update_data(questions=questions, index=0)
         await ask_question(message, state)

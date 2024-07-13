@@ -13,21 +13,6 @@ dp = Dispatcher()
 
 
 @dp.message(Command("start"))
-# async def echo(message: types.Message):
-#   await message.answer(f"Привет *{message.from_user.full_name}* \- это бот по *СВО*яку")
-  # kb = [
-  #    [
-  #       types.KeyboardButton(text="Поехали"),
-  #       types.KeyboardButton(text="О проекте"),
-  #    ]
-  # ]
-  # keyboard = types.ReplyKeyboardMarkup(
-  #     keyboard=kb,
-  #     resize_keyboard=True,
-  #     input_field_placeholder="Чего желаете?"
-  # )
-  # await message.answer(f"Чего желаете?", reply_markup=keyboard)
-
 async def start_command(message: types.Message):
     user_status = await user_db_connect(message.chat.id, message.from_user.full_name)
     
