@@ -5,7 +5,11 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram import Router
 
 
+<<<<<<< HEAD
 from questions_handler.sqlite_db import db_connect
+=======
+from questions_handler.questions_db import db_connect
+>>>>>>> user_log
 from user_handler.user_db import user_db_connect
 router = Router()
 

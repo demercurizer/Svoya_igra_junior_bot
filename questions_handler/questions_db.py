@@ -1,9 +1,9 @@
 import aiosqlite
 import random
 
-# Подключение к базе данных и выбор вопросов
+
 async def db_connect(parametr):
-    async with aiosqlite.connect("questions.db") as connection:
+    async with aiosqlite.connect("questions_handler/questions.db") as connection:
         cursor = await connection.cursor()
         await cursor.execute(""" CREATE TABLE IF NOT EXISTS questions (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,9 +13,8 @@ async def db_connect(parametr):
                     question_text TEXT,
                     answer TEXT);
                   """)
-        
         if parametr == 0:
-            res = random.sample(range(1, 92), 10)
+            res = random.sample(range(1, 144), 10)
             res_str = ', '.join(map(str, res))
             query = f""" SELECT * FROM questions WHERE topic_number in ({res_str}) """
             await cursor.execute(query)
