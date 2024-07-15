@@ -7,7 +7,7 @@ from aiogram.filters.command import Command
 from questions_handler import game_handler
 from user_handler import user_handler
 import config
-from user_handler.user_db import user_db_connect
+from user_handler.user_db import user_db_connect, handle_rating
 bot = Bot(token=config.BOT_TOKEN)
 dp = Dispatcher()
 
@@ -26,8 +26,11 @@ async def start_command(message: types.Message):
         await message.answer(f"Привет *{message.from_user.full_name}* - это бот по *СВО*яку")
         kb = [
            [
-              types.KeyboardButton(text="Поехали"),
+               types.KeyboardButton(text="Поехали"),
+           ],
+           [
               types.KeyboardButton(text="О проекте"),
+              types.KeyboardButton(text="Рейтинг"),
            ]
         ]
         keyboard = types.ReplyKeyboardMarkup(
@@ -42,11 +45,14 @@ async def start_command(message: types.Message):
 
 
 
+@dp.message(F.text.lower() == "рейтинг")
+async def infro(message: types.Message):
+    answer_text = await handle_rating(message.from_user.id)
+    await message.answer(answer_text)
+
 @dp.message(F.text.lower() == "о проекте")
 async def infro(message: types.Message):
     await message.reply("In progress")
-
-
 
 
 async def main():
